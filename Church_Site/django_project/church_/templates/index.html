@@ -106,15 +106,19 @@
         function verificarEmail() {
           var email = document.getElementById("mce-EMAIL").value;
           var emailVerificacao = document.getElementById("mce-EMAIL-verificacao").value;
-  
+      
           if (email !== emailVerificacao) {
             alert("Os emails não correspondem!");
             return false;
           }
-  
+      
+          // Abre o link após a verificação de e-mail
+          window.open("https://gmail.us13.list-manage.com/subscribe/post?u=ee6dc3c56054faf946bbd3a1c&amp;id=e2426a9f0e&amp;f_id=007491e2f0");
+          
           return true;
         }
       </script>
+      
     </body>
   </head>
 </html>

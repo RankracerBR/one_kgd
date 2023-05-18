@@ -4,6 +4,7 @@ from .models import Email
 
 class EmailAdmin(admin.ModelAdmin):
     list_display = ('email',)
+    list_filter = ('nome','sobrenome')
 
 
 admin.site.register(Email)

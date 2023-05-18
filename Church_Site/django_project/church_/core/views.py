@@ -3,6 +3,7 @@ from django.conf import settings
 from .models import Email
 from django.contrib import messages
 from django.shortcuts import redirect
+from .models import Email
 
 def index(request):
     return render(request, 'index.html')
@@ -16,7 +17,7 @@ def subscribe(request):
         if not Email.objects.filter(email=email).exists():
             subscriber = Email(email=email)
             subscriber.save()
-            
+
     # Não é necessário retornar uma resposta para o navegador
     return redirect('https://gmail.us13.list-manage.com/subscribe/post?u=ee6dc3c56054faf946bbd3a1c&amp;id=e2426a9f0e&amp;f_id=007491e2f0')
 
