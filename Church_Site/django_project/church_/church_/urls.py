@@ -22,5 +22,6 @@ from django.views.generic import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/', views.index),
-    path('', RedirectView.as_view(url='/index/')),
+    path('', views.index, name='index'),
+    path('subscribe/', views.subscribe, name='subscribe')
 ]

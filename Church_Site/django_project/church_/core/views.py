@@ -5,19 +5,20 @@ from django.contrib import messages
 from django.shortcuts import redirect
 
 def index(request):
-    if request.method == 'POST':
-        email = request.POST.get('EMAIL')
-        nome = request.POST.get('FNAME')
-        sobrenome = request.POST.get('LNAME')
-
-        if Email.objects.filter(email=email).exists():
-            messages.error(request, 'Este email já está cadastrado.')
-        else:
-            subscriber = Email(email = email, nome = nome, sobrenome = sobrenome)
-            subscriber.save()
-            messages.success(request, 'Email registrado com sucesso!')
-            return redirect('https://gmail.us13.list-manage.com/subscribe/post?u=ee6dc3c56054faf946bbd3a1c&amp;id=e2426a9f0e&amp;f_id=007491e2f0')
     return render(request, 'index.html')
+
+
+def subscribe(request):
+    if request.method == 'POST':
+        email = request.POST.get('EMAIL', '')
+        
+        # Verifique se o e-mail já existe no banco de dados para evitar duplicatas
+        if not Email.objects.filter(email=email).exists():
+            subscriber = Email(email=email)
+            subscriber.save()
+            
+    # Não é necessário retornar uma resposta para o navegador
+    return redirect('https://gmail.us13.list-manage.com/subscribe/post?u=ee6dc3c56054faf946bbd3a1c&amp;id=e2426a9f0e&amp;f_id=007491e2f0')
 
 '''
 def index(request):
