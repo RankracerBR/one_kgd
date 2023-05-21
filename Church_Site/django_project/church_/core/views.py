@@ -1,25 +1,34 @@
 from django.shortcuts import render
-from django.conf import settings
 from .models import Email
-from django.contrib import messages
 from django.shortcuts import redirect
 from .models import Email
+from django.http import JsonResponse
 
 def index(request):
     return render(request, 'index.html')
 
-
 def subscribe(request):
     if request.method == 'POST':
-        email = request.POST.get('EMAIL', '')
-        
-        # Verifique se o e-mail já existe no banco de dados para evitar duplicatas
-        if not Email.objects.filter(email=email).exists():
-            subscriber = Email(email=email)
-            subscriber.save()
+        nome = request.POST.get('nome')
+        sobrenome = request.POST.get('sobrenome')
+        email = request.POST.get('email')
 
-    # Não é necessário retornar uma resposta para o navegador
-    return redirect('https://gmail.us13.list-manage.com/subscribe/post?u=ee6dc3c56054faf946bbd3a1c&amp;id=e2426a9f0e&amp;f_id=007491e2f0')
+        # Verificar se o email já está registrado
+        if Email.objects.filter(nome = nome, sobrenome = sobrenome, email=email).exists():
+            response_data = {
+                'message': 'Esse email já está registrado.'
+            }
+            return JsonResponse(response_data)
+
+        novo_email = Email(nome=nome, sobrenome=sobrenome, email=email)
+        novo_email.save()
+
+        response_data = {
+            'message': 'Inscrição realizada com sucesso!'
+        }
+        return JsonResponse(response_data)
+
+    return render(request, 'index.html')
 
 '''
 def index(request):

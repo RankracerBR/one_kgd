@@ -9,3 +9,9 @@ class Email(models.Model):
 
     def __str__(self):
         return self.email
+    
+    def __str__(self):
+        return self.nome
+    
+    def __str__(self):
+        return self.sobrenome
