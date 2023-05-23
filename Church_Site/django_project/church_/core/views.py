@@ -3,9 +3,10 @@ from .models import Email
 from django.shortcuts import redirect
 from .models import Email
 from django.http import JsonResponse
+from django.urls import reverse
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'cadastro.html')
 
 def subscribe(request):
     if request.method == 'POST':
@@ -14,19 +15,14 @@ def subscribe(request):
         email = request.POST.get('email')
 
         # Verificar se o email já está registrado
-        if Email.objects.filter(nome = nome, sobrenome = sobrenome, email=email).exists():
-            response_data = {
-                'message': 'Esse email já está registrado.'
-            }
-            return JsonResponse(response_data)
-
-        novo_email = Email(nome=nome, sobrenome=sobrenome, email=email)
-        novo_email.save()
-
-        response_data = {
-            'message': 'Inscrição realizada com sucesso!'
-        }
-        return JsonResponse(response_data)
+        if Email.objects.filter(email=email).exists():
+            mensagem = 'Erro: O email já está registrado.'
+            return render(request, 'index.html', {'mensagem': mensagem})
+        else:
+            novo_email = Email(nome=nome, sobrenome=sobrenome, email=email)
+            novo_email.save()
+            # Redirecionar para a URL '/subscribe/'
+            return redirect(reverse('subscribe'))
 
     return render(request, 'index.html')
 
