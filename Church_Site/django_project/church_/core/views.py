@@ -2,12 +2,14 @@ from django.shortcuts import render
 from .models import Email
 from django.shortcuts import redirect
 from .models import Email
-from django.http import JsonResponse
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 def index(request):
     return render(request, 'cadastro.html')
 
+@csrf_exempt
 def subscribe(request):
     if request.method == 'POST':
         nome = request.POST.get('nome')
@@ -15,12 +17,15 @@ def subscribe(request):
         email = request.POST.get('email')
 
         # Verificar se o email já está registrado
-        if Email.objects.filter(email=email).exists():
+        email_exists = Email.objects.filter(email=email).exists()
+
+        if email_exists:
             mensagem = 'Erro: O email já está registrado.'
-            return render(request, 'index.html', {'mensagem': mensagem})
+            return render(request, 'cadastro.html', {'mensagem': mensagem})
         else:
             novo_email = Email(nome=nome, sobrenome=sobrenome, email=email)
             novo_email.save()
+            mensagem = 'Email Cadastrado com sucesso'
             # Redirecionar para a URL '/subscribe/'
             return redirect(reverse('subscribe'))
 

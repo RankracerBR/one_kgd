@@ -21,8 +21,16 @@
             name="mc-embedded-subscribe-form"
             class="validate"
             target="_self"
-            onsubmit="return verificarEmail();"
+            onsubmit=
+            "return verificarEmail();"
           >
+          <div id="mensagem">
+            {% if mensagem %}
+              <p>{{ mensagem }}</p>
+            {% endif %}
+          </div>
+          <div id="mensagem"></div>
+          {% csrf_token %}
             <div id="mc_embed_signup_scroll">
               <div class="formulario">
                 <div class="form">
@@ -87,8 +95,7 @@
       <script>
         function verificarEmail() {
           var email = document.getElementById("mce-EMAIL").value;
-          var emailVerificacao = document.getElementById("mce-EMAIL-verificacao").value;
-
+          var emailVerificacao = document.getElementById("mce-EMAIL-verificacao").value;      
           if (email !== emailVerificacao) {
             alert("Os emails não correspondem!");
             return false;

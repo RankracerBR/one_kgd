@@ -61,7 +61,7 @@
                       name="email"
                       class="required email"
                       placeholder="Email"
-                      id="mce-EMAIL"
+                      id="mce-EMAIL-admin"
                       required
                     />
 
@@ -72,11 +72,12 @@
                         name="EMAIL"
                         class="required email"
                         placeholder="Verifique seu Email"
-                        id="mce-EMAIL-verificacao"
+                        id="mce-EMAIL-verificacao-admin"
                         required
                       />
 
                   </div>
+                  <script src="seu_script.js"></script>
                   <div
                     style="position: absolute; left: -50000px"
                     aria-hidden="true"
@@ -110,14 +111,13 @@
       </div>
       <script>
         function verificarEmail() {
-
           var nome = document.getElementById("mce-FNAME").value;
           var sobrenome = document.getElementById("mce-LNAME").value;
-          var email = document.getElementById("mce-EMAIL").value;
-          var emailVerificacao = document.getElementById("mce-EMAIL-verificacao").value;
-          
+          var email = document.getElementById("mce-EMAIL-admin").value;
+          var emailVerificacao = document.getElementById("mce-EMAIL-verificacao-admin").value;
+
           if (nome.trim() === '' || sobrenome.trim() === '') {
-            alert("Por favor, preencha o nome e sobrenome.");
+            alert("Por favor, preencha o nome e sobrenome");
             return false;
           }
 
