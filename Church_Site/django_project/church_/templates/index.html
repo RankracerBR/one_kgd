@@ -24,6 +24,8 @@
             onsubmit=
             "return verificarEmail();"
           >
+        <input type="hidden" id="email_hidden" name="email_hidden">
+        <input type="hidden" id="email_verificacao_hidden" name="email_verificacao_hidden">
           <div id="mensagem">
             {% if mensagem %}
               <p>{{ mensagem }}</p>
@@ -100,6 +102,9 @@
             alert("Os emails não correspondem!");
             return false;
           }
+          document.getElementById("email_hidden").value = email;
+          document.getElementById("email_verificacao_hidden").value = emailVerificacao;
+          return true;
         }
       </script>
     </body>
