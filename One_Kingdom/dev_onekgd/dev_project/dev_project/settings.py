@@ -12,6 +12,13 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from whitenoise.middleware import WhiteNoiseMiddleware
+from django.shortcuts import render
+
+def custom_server_error(request):
+    return render(request, '500.html', status=500)
+
+handler500 = 'dev_project.settings.custom_server_error'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +32,8 @@ SECRET_KEY = 'django-insecure-q+4xk+^k+#4pastj9f258fyobwi^(kxo3k=x=f4@1sohxqd(3@
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True #Disable Later
+DEBUG = True
+#DEBUG404 = True
 
 ALLOWED_HOSTS = ['*'] #Put the domain of the One_Kingdom later
 
@@ -43,7 +51,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -71,7 +78,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'dev_project.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -124,7 +130,11 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
+STATIC_ROOT = '/static/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+

@@ -20,7 +20,6 @@ def Import_To_Csv(modeladmin,request, queryset):
     
     return response
 
-
 class EmailAdmin(admin.ModelAdmin):
     list_display = ('nome','congregacao','email')
     list_filter = ('nome','congregacao','email')

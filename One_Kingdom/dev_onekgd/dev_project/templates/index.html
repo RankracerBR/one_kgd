@@ -18,10 +18,25 @@
       href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
     />
     <title>One Kingdom</title>
+  
+    <style>
+      .alert {
+        padding: 20px;
+        background-color: #f44336;
+        color: white;
+      }
+  
+      .fechar {
+        float: right;
+        font-size: 30px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    </style>
+
   </head>
 
   <body>
-
     <header class="bg-nav">
       <div class="menu">
         <img class="logo" src="{% static 'imagens/logo.svg' %}" alt="logo" />
@@ -29,7 +44,6 @@
           <ul class="navegation">
             <li><a href="#home" class="ativo">início</a></li>
             <li><a href="#about-me">Sobre nós</a></li>
-            <li><a href="#participants">Participantes</a></li>
             <li><a href="#contacts">Contatos</a></li>
           </ul>
         </nav>
@@ -42,7 +56,6 @@
             <ul class="nav navegation-mobile">
               <li><a href="#home">início</a></li>
               <li><a href="#about-me">Sobre nós</a></li>
-              <li><a href="#participants">Participantes</a></li>
               <li><a href="#contacts">Contatos</a></li>
                 <ul class="social">
                   <li><a  href="https://www.instagram.com/one_kingdom_1/" target="_blank"><img src="{% static 'imagens/instagram.png' %}" alt="instagram"></a></li>
@@ -72,17 +85,20 @@
           <p>Participe e sinta-se acolhido em nossa comunidade.</p>
         </div>
         <img src="{% static 'imagens/logo-simbolo.png' %}" alt="logo" />
-        <a href="#" class="btn"> Faça já sua inscrição </a>
+        <a href="#" class="btn" id="inscricao-btn"> Faça já sua inscrição </a>
       </div>
     </section>
-
     <div class="verse">
       <h3>
         "Há um só corpo e um só Espírito, como também fostes chamados em uma só
         esperança da vossa vocação."
       </h3>
     </div>
-
+    <script>
+      document.getElementById("inscricao-btn").addEventListener("click", function() {
+        alert("Formulário indisponível no momento!");
+      });
+    </script>
     <section class="about-me" id="about-me">
       <h1>SOBRE NÓS</h1>
 
@@ -124,7 +140,6 @@
         <span class="text">One Kingdom</span>
       </div>
     </div>
-
     <section section class="about-event">
       <div class="container">
         <h1 class="title">Próximo evento</h1>
@@ -140,19 +155,10 @@
 
           <div class="info">
             <p class="date">17 à 18 <span>de</span> novembro</p>
-            <p class="hour"><span id="current-time"></span>hrs</p>
+            <p class="hour"><span id="current-time"></span></p>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
               <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.32/moment-timezone-with-data.min.js"></script>
-              <script>
-                function updateTime() {
-                  var currentTime = moment().tz("{{ timezone }}").format('HH:mm:ss');
-                  document.getElementById('current-time').textContent = currentTime;
-                }
-
-                updateTime();
-
-                setInterval(updateTime, 1000);
-              </script>  
+              <p class="hour"><h4>Horário do Evento:</h4> 19:00hrs</p>
           </div>
         </div>
       </div>
